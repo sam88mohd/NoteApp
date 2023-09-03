@@ -1,15 +1,60 @@
 using System.Data;
+using System.Data.SQLite;
 
 namespace NoteApp
 {
     public partial class MainForm : Form
     {
-        DataTable dt = new DataTable();
         bool editing = false;
+        DataTable dt;
+        SQLiteConnection conn;
 
         public MainForm()
         {
             InitializeComponent();
+            conn = CreateConnection();
+            if (!File.Exists("database.db"))
+            {
+                CreateTable(conn);
+            }
+            dt = FillDataTable(conn, "SELECT * FROM Notes");
+        }
+
+        public SQLiteConnection CreateConnection()
+        {
+            SQLiteConnection conn = new SQLiteConnection
+                ("Data Source=database.db; Version = 3; New = True; Compress = True; ");
+            try
+            {
+                conn.Open();
+            } catch (Exception e)
+            {
+
+            }
+            return conn;
+        }
+
+        public void CreateTable(SQLiteConnection conn)
+        {
+            SQLiteCommand cmd;
+            string command =
+                "CREATE TABLE NOTES(ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Title VARCHAR(50) NOT NULL, Note VARCHAR(250));";
+            cmd = conn.CreateCommand();
+            cmd.CommandText = command;
+            cmd.ExecuteNonQuery();
+        }
+
+        public DataTable FillDataTable(SQLiteConnection conn, string sql)
+        {
+            DataTable dt = new DataTable();
+            SQLiteCommand cmd = new SQLiteCommand(sql);
+            using (conn)
+            {
+                cmd.Connection = conn;
+                SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
         }
 
         private void AddBtn_Click(object sender, EventArgs e)
@@ -22,12 +67,12 @@ namespace NoteApp
         {
             if (editing)
             {
-                dt.Rows[TableContent.CurrentCell.RowIndex]["title"] = TitleInput.Text;
-                dt.Rows[TableContent.CurrentCell.RowIndex]["note"] = NoteInput.Text;
+                dt.Rows[TableContent.CurrentCell.RowIndex]["Title"] = TitleInput.Text;
+                dt.Rows[TableContent.CurrentCell.RowIndex]["Note"] = NoteInput.Text;
             }
             else
             {
-                dt.Rows.Add(TitleInput.Text, NoteInput.Text);
+                dt.Rows.Add(1, TitleInput.Text, NoteInput.Text);
             }
 
             TitleInput.Text = "";
@@ -49,8 +94,6 @@ namespace NoteApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            dt.Columns.Add("Title", typeof(string));
-            dt.Columns.Add("Note", typeof(string));
             TableContent.DataSource = dt;
         }
 
