@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             NoteInput = new TextBox();
             NoteLabel = new Label();
             AddBtn = new Button();
@@ -36,22 +37,23 @@
             TitleInput = new TextBox();
             TitleLabel = new Label();
             TableContent = new DataGridView();
+            CompletedBox = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)TableContent).BeginInit();
             SuspendLayout();
             // 
             // NoteInput
             // 
-            NoteInput.Location = new Point(469, 91);
+            NoteInput.Location = new Point(708, 90);
             NoteInput.Multiline = true;
             NoteInput.Name = "NoteInput";
-            NoteInput.Size = new Size(319, 335);
+            NoteInput.Size = new Size(444, 288);
             NoteInput.TabIndex = 0;
             // 
             // NoteLabel
             // 
             NoteLabel.AutoSize = true;
             NoteLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            NoteLabel.Location = new Point(466, 68);
+            NoteLabel.Location = new Point(705, 67);
             NoteLabel.Name = "NoteLabel";
             NoteLabel.Size = new Size(48, 20);
             NoteLabel.TabIndex = 3;
@@ -60,7 +62,7 @@
             // AddBtn
             // 
             AddBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            AddBtn.Location = new Point(9, 383);
+            AddBtn.Location = new Point(466, 335);
             AddBtn.Name = "AddBtn";
             AddBtn.Size = new Size(222, 43);
             AddBtn.TabIndex = 6;
@@ -92,7 +94,7 @@
             // 
             // TitleInput
             // 
-            TitleInput.Location = new Point(466, 37);
+            TitleInput.Location = new Point(705, 36);
             TitleInput.Name = "TitleInput";
             TitleInput.Size = new Size(319, 27);
             TitleInput.TabIndex = 9;
@@ -101,7 +103,7 @@
             // 
             TitleLabel.AutoSize = true;
             TitleLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TitleLabel.Location = new Point(469, 15);
+            TitleLabel.Location = new Point(708, 14);
             TitleLabel.Name = "TitleLabel";
             TitleLabel.Size = new Size(44, 20);
             TitleLabel.TabIndex = 10;
@@ -111,25 +113,52 @@
             // 
             TableContent.AllowUserToAddRows = false;
             TableContent.AllowUserToDeleteRows = false;
+            TableContent.AllowUserToResizeColumns = false;
+            TableContent.AllowUserToResizeRows = false;
             TableContent.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            TableContent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            TableContent.Location = new Point(9, 15);
+            TableContent.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            TableContent.ColumnHeadersHeight = 29;
+            TableContent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            TableContent.DefaultCellStyle = dataGridViewCellStyle1;
+            TableContent.Location = new Point(12, 13);
             TableContent.Margin = new Padding(3, 4, 3, 4);
             TableContent.Name = "TableContent";
             TableContent.ReadOnly = true;
             TableContent.RowHeadersVisible = false;
             TableContent.RowHeadersWidth = 51;
+            TableContent.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             TableContent.RowTemplate.Height = 25;
+            TableContent.RowTemplate.ReadOnly = true;
+            TableContent.RowTemplate.Resizable = DataGridViewTriState.False;
             TableContent.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            TableContent.Size = new Size(450, 315);
+            TableContent.Size = new Size(679, 315);
             TableContent.TabIndex = 11;
             TableContent.CellDoubleClick += TableContent_CellDoubleClick;
+            // 
+            // CompletedBox
+            // 
+            CompletedBox.AutoSize = true;
+            CompletedBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            CompletedBox.Location = new Point(1030, 39);
+            CompletedBox.Name = "CompletedBox";
+            CompletedBox.Size = new Size(107, 24);
+            CompletedBox.TabIndex = 13;
+            CompletedBox.Text = "Completed";
+            CompletedBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 437);
+            ClientSize = new Size(1164, 392);
+            Controls.Add(CompletedBox);
             Controls.Add(TableContent);
             Controls.Add(TitleLabel);
             Controls.Add(TitleInput);
@@ -156,5 +185,6 @@
         private Button DeleteBtn;
         private TextBox TitleInput;
         private DataGridView TableContent;
+        private CheckBox CompletedBox;
     }
 }
